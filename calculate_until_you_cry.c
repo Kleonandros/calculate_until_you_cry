@@ -659,7 +659,77 @@ Trignometric_inverse:
 
 void Angle_Conversions()
 {
-    printf("afasf");
+    int angle_conversion_choice;
+    double degree_input1, radian_result1, radian_input1, degree_result1;
+
+Angle_conversions:
+
+    printf("\t----------------------------------------------------------------------------------------\n");
+    printf("\t|                                                                                      |\n");
+    printf("\t|                                Angle Conversions                                     |\n");
+    printf("\t|                                                                                      |\n");
+    printf("\t|        1. Degrees to Radians                        2. Radians to Degrees            |\n");
+    printf("\t|                                                                                      |\n");
+    printf("\t|                             99. Back to main menu                                    |\n");
+    printf("\t|                                                                                      |\n");
+    printf("\t----------------------------------------------------------------------------------------\n");
+
+    printf("ENTER YOUR OPTION : ");
+    scanf("%d", &angle_conversion_choice);
+    clear_screen();
+
+    if (angle_conversion_choice == 1)
+    {
+        printf("Enter the value angle in Degrees : ");
+        scanf("%lf", &degree_input1);
+
+        // printf("DEBUG: Degree input = %lf\n", degree_input);
+
+        // printf("DEBUG: PI = %.15f, factor = %.15f\n", M_PI, (M_PI / 180.0));
+
+        radian_result1 = degree_input1 * (M_PI / 180.0000);
+        printf("%lf deg = %lf rad", degree_input1, radian_result1);
+
+        printf("\n\t\tPRESS ENTER TO CONTINUE...");
+        getchar();
+        getchar();
+        clear_screen();
+        goto Angle_conversions;
+    }
+    else if (angle_conversion_choice == 2)
+    {
+
+        printf("Enter the value angle in Radians : ");
+        scanf("%lf", &radian_input1);
+
+        // Optional debug if needed
+        // printf("DEBUG: Radian input = %lf\n", radian_input);
+        // printf("DEBUG: PI = %.15f, factor = %.15f\n", M_PI, (180.0 / M_PI));
+
+        degree_result1 = radian_input1 * (180.0 / M_PI);
+        printf("%lf rad = %lf deg", radian_input1, degree_result1);
+
+        printf("\n\t\tPRESS ENTER TO CONTINUE...");
+        getchar();
+        getchar();
+        clear_screen();
+        goto Angle_conversions;
+    }
+    else if (angle_conversion_choice == 99)
+    {
+        clear_screen();
+        Trigonometry();
+    }
+    else
+    {
+        printf("\nERROR, PLEASE ENTER CORRECT OPTION !!!\n");
+
+        printf("\n\t\tPRESS ENTER TO CONTINUE...");
+        getchar();
+        getchar();
+        clear_screen();
+        goto Angle_conversions;
+    }
 }
 
 void Triangle_Solver()
