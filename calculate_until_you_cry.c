@@ -25,6 +25,39 @@
 #define M_PI 3.14159265358979323846
 #endif
 
+#include <windows.h>
+
+// for colours to work cross platform
+#ifndef ENABLE_VIRTUAL_TERMINAL_PROCESSING
+#define ENABLE_VIRTUAL_TERMINAL_PROCESSING 0x0004
+#endif
+
+void enable_virtual_terminal()
+{
+    HANDLE hOut = GetStdHandle(STD_OUTPUT_HANDLE);
+    DWORD dwMode = 0;
+    GetConsoleMode(hOut, &dwMode);
+    dwMode |= ENABLE_VIRTUAL_TERMINAL_PROCESSING;
+    SetConsoleMode(hOut, dwMode);
+}
+
+// colours
+#define CYAN "\033[1;36m"
+#define MAGENTA "\033[1;35m"
+#define GREEN "\033[1;32m"
+#define RED "\033[1;31m"
+#define YELLOW "\033[1;33m"
+#define BLUE "\033[1;34m"
+#define GRAY "\033[90m"
+#define RESET "\033[0m"
+// Neon & Cyber ANSI Colors
+#define BOLD "\033[1m"
+#define DIM "\033[2m"
+#define ITALIC "\033[3m"
+#define UNDERLINE "\033[4m"
+
+
+
 // sleep settings
 #ifdef _WIN32
 #include <windows.h> // for sleep
@@ -43,6 +76,47 @@ void wait_ms(int milliseconds)
     nanosleep(&ts, NULL);
 #endif
 }
+
+// rainbow colour func
+
+void hsv_to_rgb(float h, float s, float v, int *r, int *g, int *b) {
+    float c = v * s;
+    float x = c * (1 - fabs(fmod(h / 60.0, 2) - 1));
+    float m = v - c;
+    float r1, g1, b1;
+
+    if (h < 60) {
+        r1 = c; g1 = x; b1 = 0;
+    } else if (h < 120) {
+        r1 = x; g1 = c; b1 = 0;
+    } else if (h < 180) {
+        r1 = 0; g1 = c; b1 = x;
+    } else if (h < 240) {
+        r1 = 0; g1 = x; b1 = c;
+    } else if (h < 300) {
+        r1 = x; g1 = 0; b1 = c;
+    } else {
+        r1 = c; g1 = 0; b1 = x;
+    }
+
+    *r = (int)((r1 + m) * 255);
+    *g = (int)((g1 + m) * 255);
+    *b = (int)((b1 + m) * 255);
+}
+
+void print_rainbow(const char *text) {
+    int len = strlen(text);
+    for (int i = 0; i < len; i++) {
+        float hue = (float)i / len * 360;  // full color wheel
+        int r, g, b;
+        hsv_to_rgb(hue, 1.0, 1.0, &r, &g, &b);
+        printf("\033[38;2;%d;%d;%dm%c", r, g, b, text[i]);
+    }
+    printf("\033[0m");
+}
+
+
+
 
 // clear screen settings
 void clear_screen()
@@ -63,29 +137,40 @@ void Geometry();
 void Statistics();
 void Coversions();
 
+
+
+
+
 int main()
 {
+    enable_virtual_terminal(); // for colours cross platform
+    
+    
     int choice_menu;
 main_menu:
 
-    printf("\t----------------------------------------------------------------------------------------\n");
-    printf("\t|                                                                                      |\n");
-    printf("\t|                        CALCULATE   UNTIL   YOU   CRY                                 |\n");
-    printf("\t|                                                                                      |\n");
-    printf("\t|        1. Arithmetic            2. Trigonometry              3. Geometry             |\n");
-    printf("\t|                                                                                      |\n");
-    printf("\t|        4. Statistics            5. Coversions                6.                      |\n");
-    printf("\t|                                                                                      |\n");
-    printf("\t|                                                                                      |\n");
-    printf("\t|                                                                                      |\n");
-    printf("\t|                                                                                      |\n");
-    printf("\t|                                                                                      |\n");
-    printf("\t|                                                                                      |\n");
-    printf("\t|                                  99. EXIT                                            |\n");
-    printf("\t|                                                                                      |\n");
-    printf("\t----------------------------------------------------------------------------------------\n");
 
-    printf("ENTER YOUR OPTION : ");
+    printf(BOLD MAGENTA"\t----------------------------------------------------------------------------------------\n"RESET);
+    printf(BOLD MAGENTA"\t|"RESET"                                                                                      "BOLD MAGENTA"|\n\t|"RESET);
+    print_rainbow("                               CALCULATE UNTIL YOU CRY                                ");
+    printf(BOLD MAGENTA"|"RESET);
+    printf(BOLD MAGENTA"\n\t|                                                                                      |\n"RESET);
+    printf(BOLD MAGENTA UNDERLINE"\t|                                                                                      "BOLD MAGENTA"|\n"RESET);
+    printf(BOLD MAGENTA"\t|                                                                                      |\n");
+    printf(BOLD MAGENTA"\t|"RESET"                                                                                      "BOLD MAGENTA"|\n"RESET);
+    printf(BOLD MAGENTA"\t|"RESET CYAN"        1."RESET YELLOW" Arithmetic"RESET"            "CYAN" 2."RESET YELLOW" Trigonometry"RESET"              "CYAN"3."RESET YELLOW" Geometry"RESET"            "BOLD MAGENTA"|\n"RESET);
+    printf(BOLD MAGENTA"\t|"RESET"                                                                                      "BOLD MAGENTA"|\n"RESET);
+    printf(BOLD MAGENTA"\t|"RESET CYAN"        4. "RESET YELLOW" Statistics"RESET"            "CYAN"5."RESET YELLOW" Coversions"RESET"                "CYAN"6."RESET YELLOW" (in development)"RESET"    "BOLD MAGENTA"|\n"RESET);
+    printf(BOLD MAGENTA"\t|"RESET"                                                                                      "BOLD MAGENTA"|\n"RESET);
+    printf(BOLD MAGENTA"\t|"RESET"                                                                                      "BOLD MAGENTA"|\n"RESET);
+    printf(BOLD MAGENTA"\t|"RESET"                                                                                      "BOLD MAGENTA"|\n"RESET);
+    printf(BOLD MAGENTA"\t|"RESET"                                                                                      "BOLD MAGENTA"|\n"RESET);
+    printf(BOLD MAGENTA"\t|"RESET"                                                                                      "BOLD MAGENTA"|\n"RESET);
+    printf(BOLD MAGENTA"\t|"RESET"                                                                                      "BOLD MAGENTA"|\n"RESET);
+    printf(BOLD MAGENTA"\t|"RESET GRAY"                                  99. EXIT                                            "RESET BOLD MAGENTA"|\n"RESET);
+    printf(BOLD MAGENTA"\t|"RESET"                                                                                      "BOLD MAGENTA"|\n"RESET);
+    printf(BOLD MAGENTA"\t----------------------------------------------------------------------------------------\n"RESET);
+    printf(BOLD ITALIC GREEN"ENTER YOUR OPTION : "RESET);
     scanf("%d", &choice_menu);
 
     if (choice_menu == 1)
