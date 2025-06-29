@@ -16,7 +16,7 @@
 //     printf("\t|                                                                                                                                                                                                               |\n");
 //     printf("\t|                                                                                                                                                                                                               |\n");
 //     printf("\t----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|\n");
-// calculate huhahah
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <math.h>
@@ -56,8 +56,6 @@ void enable_virtual_terminal()
 #define ITALIC "\033[3m"
 #define UNDERLINE "\033[4m"
 
-
-
 // sleep settings
 #ifdef _WIN32
 #include <windows.h> // for sleep
@@ -79,24 +77,48 @@ void wait_ms(int milliseconds)
 
 // rainbow colour func
 
-void hsv_to_rgb(float h, float s, float v, int *r, int *g, int *b) {
+void hsv_to_rgb(float h, float s, float v, int *r, int *g, int *b)
+{
     float c = v * s;
     float x = c * (1 - fabs(fmod(h / 60.0, 2) - 1));
     float m = v - c;
     float r1, g1, b1;
 
-    if (h < 60) {
-        r1 = c; g1 = x; b1 = 0;
-    } else if (h < 120) {
-        r1 = x; g1 = c; b1 = 0;
-    } else if (h < 180) {
-        r1 = 0; g1 = c; b1 = x;
-    } else if (h < 240) {
-        r1 = 0; g1 = x; b1 = c;
-    } else if (h < 300) {
-        r1 = x; g1 = 0; b1 = c;
-    } else {
-        r1 = c; g1 = 0; b1 = x;
+    if (h < 60)
+    {
+        r1 = c;
+        g1 = x;
+        b1 = 0;
+    }
+    else if (h < 120)
+    {
+        r1 = x;
+        g1 = c;
+        b1 = 0;
+    }
+    else if (h < 180)
+    {
+        r1 = 0;
+        g1 = c;
+        b1 = x;
+    }
+    else if (h < 240)
+    {
+        r1 = 0;
+        g1 = x;
+        b1 = c;
+    }
+    else if (h < 300)
+    {
+        r1 = x;
+        g1 = 0;
+        b1 = c;
+    }
+    else
+    {
+        r1 = c;
+        g1 = 0;
+        b1 = x;
     }
 
     *r = (int)((r1 + m) * 255);
@@ -104,10 +126,12 @@ void hsv_to_rgb(float h, float s, float v, int *r, int *g, int *b) {
     *b = (int)((b1 + m) * 255);
 }
 
-void print_rainbow(const char *text) {
+void print_rainbow(const char *text)
+{
     int len = strlen(text);
-    for (int i = 0; i < len; i++) {
-        float hue = (float)i / len * 360;  // full color wheel
+    for (int i = 0; i < len; i++)
+    {
+        float hue = (float)i / len * 360; // full color wheel
         int r, g, b;
         hsv_to_rgb(hue, 1.0, 1.0, &r, &g, &b);
         printf("\033[38;2;%d;%d;%dm%c", r, g, b, text[i]);
@@ -115,8 +139,16 @@ void print_rainbow(const char *text) {
     printf("\033[0m");
 }
 
+// for triangle solver
+double toRad(double degree)
+{
+    return degree * M_PI / 180.0;
+}
 
-
+double toDeg(double radian)
+{
+    return radian * 180.0 / M_PI;
+}
 
 // clear screen settings
 void clear_screen()
@@ -137,40 +169,34 @@ void Geometry();
 void Statistics();
 void Coversions();
 
-
-
-
-
 int main()
 {
     enable_virtual_terminal(); // for colours cross platform
-    
-    
+
     int choice_menu;
 main_menu:
 
-
-    printf(BOLD MAGENTA"\t----------------------------------------------------------------------------------------\n"RESET);
-    printf(BOLD MAGENTA"\t|"RESET"                                                                                      "BOLD MAGENTA"|\n\t|"RESET);
+    printf(BOLD MAGENTA "\t----------------------------------------------------------------------------------------\n" RESET);
+    printf(BOLD MAGENTA "\t|" RESET "                                                                                      " BOLD MAGENTA "|\n\t|" RESET);
     print_rainbow("                               CALCULATE UNTIL YOU CRY                                ");
-    printf(BOLD MAGENTA"|"RESET);
-    printf(BOLD MAGENTA"\n\t|                                                                                      |\n"RESET);
-    printf(BOLD MAGENTA UNDERLINE"\t|                                                                                      "BOLD MAGENTA"|\n"RESET);
-    printf(BOLD MAGENTA"\t|                                                                                      |\n");
-    printf(BOLD MAGENTA"\t|"RESET"                                                                                      "BOLD MAGENTA"|\n"RESET);
-    printf(BOLD MAGENTA"\t|"RESET CYAN"        1."RESET YELLOW" Arithmetic"RESET"            "CYAN" 2."RESET YELLOW" Trigonometry"RESET"              "CYAN"3."RESET YELLOW" Geometry"RESET"            "BOLD MAGENTA"|\n"RESET);
-    printf(BOLD MAGENTA"\t|"RESET"                                                                                      "BOLD MAGENTA"|\n"RESET);
-    printf(BOLD MAGENTA"\t|"RESET CYAN"        4. "RESET YELLOW" Statistics"RESET"            "CYAN"5."RESET YELLOW" Coversions"RESET"                "CYAN"6."RESET YELLOW" (in development)"RESET"    "BOLD MAGENTA"|\n"RESET);
-    printf(BOLD MAGENTA"\t|"RESET"                                                                                      "BOLD MAGENTA"|\n"RESET);
-    printf(BOLD MAGENTA"\t|"RESET"                                                                                      "BOLD MAGENTA"|\n"RESET);
-    printf(BOLD MAGENTA"\t|"RESET"                                                                                      "BOLD MAGENTA"|\n"RESET);
-    printf(BOLD MAGENTA"\t|"RESET"                                                                                      "BOLD MAGENTA"|\n"RESET);
-    printf(BOLD MAGENTA"\t|"RESET"                                                                                      "BOLD MAGENTA"|\n"RESET);
-    printf(BOLD MAGENTA"\t|"RESET"                                                                                      "BOLD MAGENTA"|\n"RESET);
-    printf(BOLD MAGENTA"\t|"RESET GRAY"                                  99. EXIT                                            "RESET BOLD MAGENTA"|\n"RESET);
-    printf(BOLD MAGENTA"\t|"RESET"                                                                                      "BOLD MAGENTA"|\n"RESET);
-    printf(BOLD MAGENTA"\t----------------------------------------------------------------------------------------\n"RESET);
-    printf(BOLD ITALIC GREEN"ENTER YOUR OPTION : "RESET);
+    printf(BOLD MAGENTA "|" RESET);
+    printf(BOLD MAGENTA "\n\t|                                                                                      |\n" RESET);
+    printf(BOLD MAGENTA UNDERLINE "\t|                                                                                      " BOLD MAGENTA "|\n" RESET);
+    printf(BOLD MAGENTA "\t|                                                                                      |\n");
+    printf(BOLD MAGENTA "\t|" RESET "                                                                                      " BOLD MAGENTA "|\n" RESET);
+    printf(BOLD MAGENTA "\t|" RESET CYAN "        1." RESET YELLOW " Arithmetic" RESET "            " CYAN " 2." RESET YELLOW " Trigonometry" RESET "              " CYAN "3." RESET YELLOW " Geometry" RESET "            " BOLD MAGENTA "|\n" RESET);
+    printf(BOLD MAGENTA "\t|" RESET "                                                                                      " BOLD MAGENTA "|\n" RESET);
+    printf(BOLD MAGENTA "\t|" RESET CYAN "        4. " RESET YELLOW " Statistics" RESET "            " CYAN "5." RESET YELLOW " Coversions" RESET "                " CYAN "6." RESET YELLOW " (in development)" RESET "    " BOLD MAGENTA "|\n" RESET);
+    printf(BOLD MAGENTA "\t|" RESET "                                                                                      " BOLD MAGENTA "|\n" RESET);
+    printf(BOLD MAGENTA "\t|" RESET "                                                                                      " BOLD MAGENTA "|\n" RESET);
+    printf(BOLD MAGENTA "\t|" RESET "                                                                                      " BOLD MAGENTA "|\n" RESET);
+    printf(BOLD MAGENTA "\t|" RESET "                                                                                      " BOLD MAGENTA "|\n" RESET);
+    printf(BOLD MAGENTA "\t|" RESET "                                                                                      " BOLD MAGENTA "|\n" RESET);
+    printf(BOLD MAGENTA "\t|" RESET "                                                                                      " BOLD MAGENTA "|\n" RESET);
+    printf(BOLD MAGENTA "\t|" RESET GRAY "                                  99. EXIT                                            " RESET BOLD MAGENTA "|\n" RESET);
+    printf(BOLD MAGENTA "\t|" RESET "                                                                                      " BOLD MAGENTA "|\n" RESET);
+    printf(BOLD MAGENTA "\t----------------------------------------------------------------------------------------\n" RESET);
+    printf(BOLD ITALIC GREEN "ENTER YOUR OPTION : " RESET);
     scanf("%d", &choice_menu);
 
     if (choice_menu == 1)
@@ -819,7 +845,149 @@ Angle_conversions:
 
 void Triangle_Solver()
 {
-    printf("saffa");
+    int triangle_choice;
+
+    double a, b, c, A, B, C;
+
+Triangle_solver:
+
+    printf("\t----------------------------------------------------------------------------------------\n");
+    printf("\t|                                                                                      |\n");
+    printf("\t|                                  Triangle Solver                                     |\n");
+    printf("\t|                                                                                      |\n");
+    printf("\t|      1. SSS (Three sides)                    2. SAS (Two Sides + Included Angle)     |\n");
+    printf("\t|                                                                                      |\n");
+    printf("\t|      3. ASA / AAS (Two Angles + One Side)    4. SSA (Two Sides + Angle NOT between)  |\n");
+    printf("\t|                                                                                      |\n");
+    printf("\t|                                                                                      |\n");
+    printf("\t|                                                                                      |\n");
+    printf("\t|                                                                                      |\n");
+    printf("\t|                                                                                      |\n");
+    printf("\t|                                                                                      |\n");
+    printf("\t|                                 99. Back to main menu                                |\n");
+    printf("\t|                                                                                      |\n");
+    printf("\t----------------------------------------------------------------------------------------\n");
+
+    printf("ENTER YOUR OPTION : ");
+    scanf("%d", &triangle_choice);
+    clear_screen();
+
+    if (triangle_choice == 1)
+    {
+        printf("Enter side a : ");
+        scanf("%lf", &a);
+        printf("\nEnter side b : ");
+        scanf("%lf", &b);
+        printf("\nEnter side c : ");
+        scanf("%lf", &c);
+
+        A = toDeg(acos((b * b + c * c - a * a) / (2 * b * c)));
+        B = toDeg(acos((a * a + c * c - b * b) / (2 * a * c)));
+        C = 180.0 - A - B;
+
+        printf("Angles : A = %.2lf deg, B = %.2lf deg, C = %.2lf deg\n", A, B, C);
+
+        printf("\n\t\tPRESS ENTER TO CONTINUE...");
+        getchar();
+        getchar();
+        clear_screen();
+        goto Triangle_solver;
+    }
+    else if (triangle_choice == 2)
+    {
+        printf("Enter side a : ");
+        scanf("%lf", &a);
+        printf("Enter side b : ");
+        scanf("%lf", &b);
+        printf("Enter angle c (deg) : ");
+        scanf("%lf", &C);
+
+        c = sqrt(a * a + b * b - 2 * a * b * cos(toRad(C)));
+        A = toDeg(asin((a * sin(toRad(C))) / c));
+        B = 180.0 - A - C;
+
+        printf("Side c = %.2lf\n", c);
+        printf("Angles : A = %.2lf deg, B = %.2lf deg, C = %.2lf deg\n", A, B, C);
+
+        printf("\n\t\tPRESS ENTER TO CONTINUE...");
+        getchar();
+        getchar();
+        clear_screen();
+        goto Triangle_solver;
+    }
+    else if (triangle_choice == 3)
+    {
+        printf("Enter angles a (deg) : ");
+        scanf("%lf", &A);
+        printf("Enter angles b (deg) : ");
+        scanf("%lf", &B);
+        printf("Enter side c : ");
+        scanf("%lf", &c);
+
+        C = 180.0 - A - B;
+        a = (c * sin(toRad(A))) / sin(toRad(C));
+        b = (c * sin(toRad(B))) / sin(toRad(C));
+
+        printf("Sides a = %.2lf, b = %.2lf\n", a, b);
+        printf("Angles : A = %.2lf deg, B = %.2lf deg, C = %.2lf deg\n", A, B, C);
+
+        printf("\n\t\tPRESS ENTER TO CONTINUE...");
+        getchar();
+        getchar();
+        clear_screen();
+        goto Triangle_solver;
+    }
+    else if (triangle_choice == 4)
+    {
+        printf("Enter side a : ");
+        scanf("%lf", &a);
+        printf("Enter side b : ");
+        scanf("%lf", &b);
+        printf("Enter angle a (deg) : ");
+        scanf("%lf", &A);
+
+        double sinB = (b * sin(toRad(A))) / a;
+
+        if (sinB < -1.0 || sinB > 1.0)
+        {
+            printf("Invalid triangle: no real solution.\n");
+            printf("\n\t\tPRESS ENTER TO CONTINUE...");
+            getchar();
+            getchar();
+            clear_screen();
+            goto Triangle_solver;
+        }
+        else
+        {
+            B = toDeg(asin(sinB));
+            C = 180.0 - A - B;
+            c = (a * sin(toRad(C))) / sin(toRad(A));
+
+            printf("Side c = %.2lf\n", c);
+            printf("Angles : A = %.2lf deg, B = %.2lf deg, C = %.2lf deg\n", A, B, C);
+
+            printf("\n\t\tPRESS ENTER TO CONTINUE...");
+            getchar();
+            getchar();
+            clear_screen();
+            goto Triangle_solver;
+        }
+    }
+    else if (triangle_choice == 99)
+    {
+        clear_screen();
+        Trigonometry();
+        return;
+    }
+    else
+    {
+        printf("Invalid choice! Please enter a valid option.\n");
+        printf("\n\t\tPRESS ENTER TO CONTINUE...");
+        getchar();
+        getchar();
+        clear_screen();
+        goto Triangle_solver;
+    }
 }
 
 void Geometry()
