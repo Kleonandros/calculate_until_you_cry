@@ -166,6 +166,13 @@ void Angle_Conversions();
 void Triangle_Solver();
 
 void Geometry();
+void twod_shapes();
+void threed_shapes();
+void triangles_geometry();
+void circles_geometry();
+void coordinate_geometry();
+void transformations_geometry();
+
 void Statistics();
 void Coversions();
 
@@ -977,7 +984,6 @@ Triangle_solver:
     {
         clear_screen();
         Trigonometry();
-        return;
     }
     else
     {
@@ -992,8 +998,208 @@ Triangle_solver:
 
 void Geometry()
 {
-    printf("This is for geometry");
+    int geometry_menu_choice;
+
+    geometry:
+
+    printf("\t----------------------------------------------------------------------------------------\n");
+    printf("\t|                                                                                      |\n");
+    printf("\t|                                   GEOMETRY                                           |\n");
+    printf("\t|                                                                                      |\n");
+    printf("\t|        1. 2D Shapes             2. 3D Shapes               3. Triangles              |\n");
+    printf("\t|                                                                                      |\n");
+    printf("\t|        4. Circles           5. Coordinate Geometry        6. Transformations         |\n");
+    printf("\t|                                                                                      |\n");
+    printf("\t|                                                                                      |\n");
+    printf("\t|                                                                                      |\n");
+    printf("\t|                                                                                      |\n");
+    printf("\t|                                                                                      |\n");
+    printf("\t|                                                                                      |\n");
+    printf("\t|                             99. Back to main menu                                    |\n");
+    printf("\t|                                                                                      |\n");
+    printf("\t----------------------------------------------------------------------------------------\n");
+    printf("ENTER YOUR OPTION : ");
+    scanf("%d", &geometry_menu_choice);
+
+    if(geometry_menu_choice == 1){
+        clear_screen();
+        twod_shapes();
+    }
+    else if(geometry_menu_choice == 2){
+        clear_screen();  
+        threed_shapes(); 
+    }
+    else if(geometry_menu_choice == 3){
+        clear_screen();
+        triangles_geometry();
+    }
+    else if(geometry_menu_choice == 4){
+        clear_screen();
+        circles_geometry();
+    }
+    else if(geometry_menu_choice == 5){
+        clear_screen();
+        coordinate_geometry();
+    }
+    else if(geometry_menu_choice == 6){
+        clear_screen();
+        transformations_geometry();
+    }
+    else if(geometry_menu_choice == 99){
+        clear_screen();
+        main();
+    }
+    else {
+        printf("\nERROR, PLEASE ENTER CORRECT OPTION !!!\n");
+
+        printf("\n\t\tPRESS ENTER TO CONTINUE...");
+        getchar();
+        getchar();
+        clear_screen();
+        goto geometry;
+    }
+
+
 }
+
+/*
+FEATURES TO ADD
+
+| Shape             | Properties to Add                         |
+| ----------------- | ----------------------------------------- |
+| **Square**        | Area, Perimeter                           |
+| **Rectangle**     | Area, Perimeter                           |
+| **Circle**        | Area, Circumference                       |
+| **Triangle**      | Area (various methods), Perimeter, Angles |
+| **Parallelogram** | Area, Perimeter                           |
+| **Rhombus**       | Area, Perimeter                           |
+| **Trapezium**     | Area, Perimeter                           |
+| **Kite**          | Area, Perimeter                           |
+| **Ellipse**       | Area, Circumference (approx)              |
+
+*/
+
+void twod_shapes(){
+    int twod_choice;
+
+
+    printf("\t----------------------------------------------------------------------------------------\n");
+    printf("\t|                                                                                      |\n");
+    printf("\t|                                   GEOMETRY                                           |\n");
+    printf("\t|                                                                                      |\n");
+    printf("\t|        1. Square            2. Rectangle               3. Circle                     |\n");
+    printf("\t|                                                                                      |\n");
+    printf("\t|        4. Triangle           5. Parallelogram        6. Rhombus                      |\n");
+    printf("\t|                                                                                      |\n");
+    printf("\t|        7. Trapezium          8. Kite                 9. Ellipse                      |\n");
+    printf("\t|                                                                                      |\n");
+    printf("\t|                                                                                      |\n");
+    printf("\t|                                                                                      |\n");
+    printf("\t|                                                                                      |\n");
+    printf("\t|                             99. Back to main menu                                    |\n");
+    printf("\t|                                                                                      |\n");
+    printf("\t----------------------------------------------------------------------------------------\n");
+    printf("ENTER YOUR OPTION : ");
+
+}
+
+/*
+features to add
+
+| Shape           | Volume                      | Surface Area               |
+| --------------- | --------------------------- | -------------------------- |
+| **Cube**        | a³                          | 6a²                        |
+| **Cuboid**      | l × b × h                   | 2(lb + bh + hl)            |
+| **Sphere**      | (4/3)πr³                    | 4πr²                       |
+| **Cylinder**    | πr²h                        | 2πr(h + r)                 |
+| **Cone**        | (1/3)πr²h                   | πr(l + r)                  |
+| **Torus**       | 2π²Rr²                      | 4π²Rr                      |
+| **Hemisphere**  | (2/3)πr³                    | 3πr²                       |
+| **Pyramid**     | (1/3) × base\_area × height | base\_area + lateral\_area |
+| **Tetrahedron** | (a³ / (6√2))                | √3 × a²                    |
+
+*/
+void threed_shapes(){
+
+}
+
+/*
+features to add
+
+| Formula             | Use                        |
+| ------------------- | -------------------------- |
+| Heron’s Formula     | Area from 3 sides          |
+| ½ × base × height   | Classic area               |
+| Sine Rule           | Non-right triangle solving |
+| Cosine Rule         | Side-angle relations       |
+| Pythagorean Theorem | Right triangles            |
+| Angle Sum Property  | A + B + C = 180°           |
+
+*/
+void triangles_geometry(){
+
+}
+
+/*
+features to add
+
+| Feature               | Formula                                   | Description                                                |
+| --------------------- | ----------------------------------------- | ---------------------------------------------------------- |
+| **Radius (r)**        | User input / derived                      | Basic length from center to any point on circle            |
+| **Diameter (d)**      | `d = 2r`                                  | Distance across the circle                                 |
+| **Circumference (C)** | `C = 2πr` or `πd`                         | Perimeter of the circle                                    |
+| **Area (A)**          | `A = πr²`                                 | Total area enclosed                                        |
+| **Arc Length (s)**    | `s = (θ/360) × 2πr`                       | Length of a curved part of the circle                      |
+| **Sector Area**       | `A = (θ/360) × πr²`                       | Area of the ‘pizza slice’ of the circle                    |
+| **Segment Area**      | `A = (r²/2)(θ - sinθ)` (θ in radians)     | Area of segment (between chord and arc)                    |
+| **Chord Length (c)**  | `c = 2r * sin(θ/2)`                       | Length of a straight line between two points on the circle |
+| **Central Angle (θ)** | `θ = (s / (2πr)) × 360`                   | Angle at center for arc length s                           |
+| **Inscribed Angle**   | `= ½ × central angle`                     | Angle with vertex on circle boundary                       |
+| **Circle Equation**   | `(x - a)² + (y - b)² = r²`                | Used in coordinate geometry (center (a, b))                |
+| **Tangents**          | `length = √(d² - r²)` from external point | Tangent from a point outside the circle                    |
+
+*/
+void circles_geometry(){
+
+}
+
+/*
+features to add
+
+| Formula                   | Meaning                     |                                   |   |
+| ------------------------- | --------------------------- | --------------------------------- | - |
+| Distance between 2 points | √\[(x₂ − x₁)² + (y₂ − y₁)²] |                                   |   |
+| Midpoint of line segment  | ((x₁ + x₂)/2 , (y₁ + y₂)/2) |                                   |   |
+| Slope (m) of line         | (y₂ − y₁)/(x₂ − x₁)         |                                   |   |
+| Equation of line          | y = mx + c                  |                                   |   |
+| Area of triangle          | ½ ×                         | x₁(y₂−y₃) + x₂(y₃−y₁) + x₃(y₁−y₂) |   |
+
+*/
+void coordinate_geometry(){
+
+}
+
+/*
+features to add
+
+| Formula                   | Meaning                     |                                   |   |
+| ------------------------- | --------------------------- | --------------------------------- | - |
+| Distance between 2 points | √\[(x₂ − x₁)² + (y₂ − y₁)²] |                                   |   |
+| Midpoint of line segment  | ((x₁ + x₂)/2 , (y₁ + y₂)/2) |                                   |   |
+| Slope (m) of line         | (y₂ − y₁)/(x₂ − x₁)         |                                   |   |
+| Equation of line          | y = mx + c                  |                                   |   |
+| Area of triangle          | ½ ×                         | x₁(y₂−y₃) + x₂(y₃−y₁) + x₃(y₁−y₂) |   |
+
+*/
+void transformations_geometry(){
+
+}
+
+
+
+
+
+
 
 void Statistics()
 {
